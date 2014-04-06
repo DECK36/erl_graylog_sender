@@ -69,7 +69,7 @@ For further information about the available options see the erl_graylog_sender m
 
 ## Dependencies
 - deck36_common: DECK36 common modules and macros
-- jiffy: JOSN NIFs for Erlang
+- jiffy: JSON NIFs for Erlang
 
 
 ## ToDos
