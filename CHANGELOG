@@ -1,3 +1,7 @@
+next
+----
+- Travis support added.
+
 0.1.1
 ------
 - Dependecy on deck36_common changed from tag 0.4.0 to app version 0.4.*
