@@ -57,11 +57,11 @@ start_stop_unnamed_test_() ->
 	{ok, Pid} = start_srv(undefined),
 	R0 = is_process_alive(Pid),
 	erl_graylog_sender:stop(Pid),
-	R1 = is_process_alive(Pid),
+	R1 = deck36_test_util:wait_for_stop(Pid, 10),
 	R2 = rcv(100),
 	unmock(erl_graylog_tcp_sender),
 	[{"started", ?_assert(R0)},
-	 {"stopped", ?_assertNot(R1)},
+	 {"stopped", ?_assertEqual(ok, R1)},
 	 {"close received", ?_assertEqual(mocked_tcp_close, R2)}
 	].
 	
@@ -71,11 +71,11 @@ start_stop_named_test_() ->
 	Pid2 = whereis(test_ref),
 	R0 = is_process_alive(Pid1),
 	erl_graylog_sender:stop(test_ref),
-	R1 = is_process_alive(Pid1),
+	R1 = deck36_test_util:wait_for_stop(Pid1, 10),
 	R2 = rcv(100),
 	unmock(erl_graylog_tcp_sender),
 	[{"started", ?_assert(R0)},
-	 {"stopped", ?_assertNot(R1)},
+	 {"stopped", ?_assertEqual(ok, R1)},
 	 {"close received", ?_assertEqual(mocked_tcp_close, R2)},
 	 {"pid is server", ?_assertEqual(Pid1, Pid2)}
 	].
@@ -86,11 +86,11 @@ start_stop_singleton_test_() ->
 	Pid2 = whereis(erl_graylog_sender),
 	R0 = is_process_alive(Pid1),
 	erl_graylog_sender:stop(),
-	R1 = is_process_alive(Pid1),
+	R1 = deck36_test_util:wait_for_stop(Pid1, 10),
 	R2 = rcv(100),
 	unmock(erl_graylog_tcp_sender),
 	[{"started", ?_assert(R0)},
-	 {"stopped", ?_assertNot(R1)},
+	 {"stopped", ?_assertEqual(ok, R1)},
 	 {"close received", ?_assertEqual(mocked_tcp_close, R2)},
 	 {"pid is server", ?_assertEqual(Pid1, Pid2)}
 	].
