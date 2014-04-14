@@ -18,4 +18,5 @@ priv/*
 test/ct/logs/*
 test/ct/config/*.config
 .DS_Store
+.rebar
 /ebin
