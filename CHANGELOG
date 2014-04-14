@@ -1,6 +1,7 @@
-next
-----
-- Travis support added.
+0.1.2 (next)
+------
+- Travis support added
+- Refactorings to make tests more stable
 
 0.1.1
 ------
