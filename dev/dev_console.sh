@@ -20,4 +20,4 @@ erlc -I $BASEDIR/deps -I $BASEDIR/src *.erl
 
 cd $BASEDIR
 
-erl $NODE -pa $BASEDIR/deps/*/ebin $BASEDIR/ebin $BASEDIR/src/*/*/deps/*/ebin $BASEDIR/src/*/*/ebin $BASEDIR/dev -args_file "$BASEDIR/dev/vm.args"
+erl $NODE -pa $BASEDIR/deps/*/ebin $BASEDIR/ebin $BASEDIR/src/*/*/deps/*/ebin $BASEDIR/src/*/*/ebin $BASEDIR/dev
