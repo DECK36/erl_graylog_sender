@@ -342,10 +342,28 @@ now_gelf_micros() ->
 -spec throw_if_not_additional_key(term()) -> ok.
 %% ====================================================================
 throw_if_not_additional_key('_id') ->					throw({invalid, {key, '_id'}, reserved});
+throw_if_not_additional_key('_ttl') ->					throw({invalid, {key, '_ttl'}, reserved});
+throw_if_not_additional_key('_source') ->				throw({invalid, {key, '_source'}, reserved});
+throw_if_not_additional_key('_all') ->					throw({invalid, {key, '_all'}, reserved});
+throw_if_not_additional_key('_index') ->				throw({invalid, {key, '_index'}, reserved});
+throw_if_not_additional_key('_type') ->					throw({invalid, {key, '_type'}, reserved});
+throw_if_not_additional_key('_score') ->				throw({invalid, {key, '_score'}, reserved});
 throw_if_not_additional_key(Key) when is_atom(Key) ->	throw_if_not_additional_key(atom_to_list(Key));
-throw_if_not_additional_key(<<"_id">>) ->				throw({invalid, {key, "_id"}, reserved});
+throw_if_not_additional_key(<<"_id">>) ->				throw({invalid, {key, <<"_id">>}, reserved});
+throw_if_not_additional_key(<<"_ttl">>) ->				throw({invalid, {key, <<"_ttl">>}, reserved});
+throw_if_not_additional_key(<<"_source">>) ->			throw({invalid, {key, <<"_source">>}, reserved});
+throw_if_not_additional_key(<<"_all">>) ->				throw({invalid, {key, <<"_all">>}, reserved});
+throw_if_not_additional_key(<<"_index">>) ->			throw({invalid, {key, <<"_index">>}, reserved});
+throw_if_not_additional_key(<<"_type">>) ->				throw({invalid, {key, <<"_type">>}, reserved});
+throw_if_not_additional_key(<<"_score">>) ->			throw({invalid, {key, <<"_score">>}, reserved});
 throw_if_not_additional_key(<<$_,_/binary>>) ->			ok;
 throw_if_not_additional_key("_id") ->					throw({invalid, {key, "_id"}, reserved});
+throw_if_not_additional_key("_ttl") ->					throw({invalid, {key, "_ttl"}, reserved});
+throw_if_not_additional_key("_source") ->				throw({invalid, {key, "_source"}, reserved});
+throw_if_not_additional_key("_all") ->					throw({invalid, {key, "_all"}, reserved});
+throw_if_not_additional_key("_index") ->				throw({invalid, {key, "_index"}, reserved});
+throw_if_not_additional_key("_type") ->					throw({invalid, {key, "_type"}, reserved});
+throw_if_not_additional_key("_score") ->				throw({invalid, {key, "_score"}, reserved});
 throw_if_not_additional_key([$_|_]) ->					ok;
 throw_if_not_additional_key(Key) ->						throw({invalid, {key, Key}, prefix}).
 

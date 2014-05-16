@@ -331,17 +331,41 @@ now_gelf_micros_0_test_() ->
 %% ====================================================================
 throw_if_not_additional_key_1_test_() ->
 	F = fun erl_graylog_gelf:throw_if_not_additional_key/1,
+	Reserved = fun(X) ->
+					   ?_assertException(throw, {invalid, {key, _}, reserved}, F(X))
+			   end,
+	Prefix = fun(X) ->
+					 ?_assertException(throw, {invalid, {key, _}, prefix}, F(X))
+			 end,
 	[
 	 {"ok _... binary", ?_assertEqual(ok, F(<<"_test">>))},
 	 {"ok _... list", ?_assertEqual(ok, F("_test"))},
 	 {"ok _... atom", ?_assertEqual(ok, F('_test'))},
-	 {"throw ... binary", ?_assertException(throw, {invalid, {key, _}, prefix}, F(<<"test">>))},
-	 {"throw ... list", ?_assertException(throw, {invalid, {key, _}, prefix}, F("test"))},
-	 {"throw ... atom", ?_assertException(throw, {invalid, {key, _}, prefix}, F(test))},
-	 {"throw integer", ?_assertException(throw, {invalid, {key, _}, prefix}, F(1))},
-	 {"throw '_id'", ?_assertException(throw, {invalid, {key, _}, reserved}, F('_id'))},
-	 {"throw <<\"_id\">>", ?_assertException(throw, {invalid, {key, _}, reserved}, F(<<"_id">>))},
-	 {"throw \"_id\"", ?_assertException(throw, {invalid, {key, _}, reserved}, F("_id"))}
+	 {"throw ... binary", Prefix(<<"test">>)},
+	 {"throw ... list", Prefix("test")},
+	 {"throw ... atom", Prefix(test)},
+	 {"throw integer", Prefix(1)},
+	 {"throw '_id'", Reserved('_id')},
+	 {"throw '_ttl'", Reserved('_ttl')},
+	 {"throw '_source'", Reserved('_source')},
+	 {"throw '_all'", Reserved('_all')},
+	 {"throw '_index'", Reserved('_index')},
+	 {"throw '_type'", Reserved('_type')},
+	 {"throw '_score'", Reserved('_score')},
+	 {"throw <<\"_id\">>", Reserved(<<"_id">>)},
+	 {"throw <<\"_ttl\">>", Reserved(<<"_ttl">>)},
+	 {"throw <<\"_source\">>", Reserved(<<"_source">>)},
+	 {"throw <<\"_all\">>", Reserved(<<"_all">>)},
+	 {"throw <<\"_index\">>", Reserved(<<"_index">>)},
+	 {"throw <<\"_type\">>", Reserved(<<"_type">>)},
+	 {"throw <<\"_score\">>", Reserved(<<"_score">>)},
+	 {"throw \"_id\"", Reserved("_id")},
+	 {"throw \"_ttl\"", Reserved("_ttl")},
+	 {"throw \"_source\"", Reserved("_source")},
+	 {"throw \"_all\"", Reserved("_all")},
+	 {"throw \"_index\"", Reserved("_index")},
+	 {"throw \"_type\"", Reserved("_type")},
+	 {"throw \"_score\"", Reserved("_score")}
 	].
 
 
