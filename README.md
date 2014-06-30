@@ -31,7 +31,7 @@ erl> {ok, Pid} = erl_graylog_sender:start_link(Opts).
 Send a message (send/2):
 ```
 erl> Msg = [{full_message, <<"Test Message">>}, {level, 1}].
-erl> erl_graylog_sender:send(Msg).
+erl> erl_graylog_sender:send(Pid, Msg).
 ```
 
 The message should now appear in graylog2.
@@ -55,7 +55,7 @@ You can also start the server in singleton mode. This is useful if you want only
 > {ok, Pid} = erl_graylog_sender:start_link(Opts).
 
 > Msg = <<"Test Message">>.
-> erl_graylog_sender:send(Pid, Msg).
+> erl_graylog_sender:send(Msg).
 ```
 
 ### Notes:
