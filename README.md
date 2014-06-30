@@ -55,7 +55,7 @@ You can also start the server in singleton mode. This is useful if you want only
 > {ok, Pid} = erl_graylog_sender:start_link(Opts).
 
 > Msg = <<"Test Message">>.
-> erl_graylog_sender:send(Msg).
+> erl_graylog_sender:send(Pid, Msg).
 ```
 
 ### Notes:
